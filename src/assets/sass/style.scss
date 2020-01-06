@@ -1,0 +1,17 @@
+$margin-10: 10px;
+$font-color: #fff;
+$theme-color: rgb(162, 145, 248);
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $margin-10;
+}
+.text-center {
+  text-align: center;
+}
+.input-label {
+  color: $theme-color !important;
+}
+.auto-width {
+  width: 100%;
+}
