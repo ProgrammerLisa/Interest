@@ -15,3 +15,12 @@ $theme-color: rgb(162, 145, 248);
 .auto-width {
   width: 100%;
 }
+.page-router-item {
+  color: $font-color;
+  p {
+    padding: 10px;
+  }
+}
+.page-router-item:hover {
+  color: $theme-color;
+}

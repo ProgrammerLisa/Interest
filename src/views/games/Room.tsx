@@ -3,7 +3,7 @@ import io from 'socket.io-client'
 import { Button, Input } from 'semantic-ui-react'
 import { intoRoom, addRoom } from '../../utils/api/chat'
 import { config } from '../../utils/request/config'
-import Gobang from '../games/Gobang-online'
+import Gobang from './Gobang-online'
 
 /*
 function renderMessageBox(props) {

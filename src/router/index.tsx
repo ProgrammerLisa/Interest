@@ -1,45 +1,141 @@
-import React from 'react' // , { lazy }
-import Loadable from 'react-loadable'
-import Loading from '../components/loading'
-import ScrollToTop from '../components/scroll' // 切换路由时滚动到顶部 返回或前进则滚动高度不变
-import ErrorBounday from '../components/error' // 错误边界
+import setRouterList from  './set-router'
+/* 
+  懒加载组件 有两种方式 推荐使用第二种
+  1. lazy(() => import(组件地址)) 加载组件时会有闪屏 用户体验较差
+  2. Loadable({
+    loader: () => import(组件地址),
+    loading: 占位符组件
+  }) 加载时无闪屏 用户体验较好 但是有已废弃的生命周期警告
+  在相关文件中将componentWillMount改为UNSAFE_componentWillMount
+*/
+//
+const Login = () => import('../views/login/login')
+const Games = () => import('../views/sidebar/games')
+const WebGL = () => import('../views/sidebar/webgl')
+const NotFound = () => import('../components/404')
+const TicTacToe = () => import('../views/games/TicTacToe')
+const Gobang = () => import('../views/games/Gobang')
+const ChatRoom = () => import('../views/games/Room')
+const Map3D = () => import('../views/webgl/Map3D')
+const FantasyWord = () => import('../views/webgl/fantasyWord')
+/*
+  lazy()方法示例
+  const GobangLazy = lazy(Gobang)
+  const ContextLazy = lazy(Context)
+  const FormLazy = lazy(Form)
+*/
 
-interface routeListItem {
-  path: string,
-  name: string,
-  component: any,
-  exact: boolean,
-  icon?: string
-}
+const routeList = [
+  {
+    path: '/',
+    name: 'home',
+    component: Login,
+    exact: true
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    exact: false
+  },
+  {
+    path: '/games',
+    name: 'games',
+    component: Games,
+    exact: false
+  },
+  {
+    path: '/webgl',
+    name: 'webgl',
+    component: WebGL,
+    exact: false
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: NotFound,
+    exact: false
+  },
+  {
+    path: '/gobang',
+    name: '五子棋',
+    component: Gobang,
+    exact: false,
+    icon: 'chess board'
+  },
+  {
+    path: '/ticTacToe',
+    name: '井字棋',
+    component: TicTacToe,
+    exact: false,
+    icon: 'th'
+  },
+  {
+    path: '/chatRoom',
+    name: '联机五子棋',
+    component: ChatRoom,
+    exact: false,
+    icon: 'handshake outline'
+  },
+  {
+    path: '/map3D',
+    name: '3D地图',
+    component: Map3D,
+    exact: false,
+    icon: 'paper plane outline'
+  },
+  {
+    path: '/fantasy-word',
+    name: '空想世界',
+    component: FantasyWord,
+    exact: false,
+    icon: 'hourglass half'
+  }
+]
 
-function setRouterList(routeList: routeListItem[]) {
-  const routes = routeList.map(Element => {
-    Element.component = asyncLoad(Element.component)
-    // 每次切换路由时 屏幕内容滚动到最上方
-    let ErrorComponent = () => (
-      <ErrorBounday>
-        <ScrollToTop/>
-        <Element.component/>
-      </ErrorBounday>
-    )
-    return { ...Element, component: ErrorComponent }
-  })
-  return routes
-}
+const gamesRouter = [
+  {
+    path: '/gobang',
+    name: '五子棋',
+    component: Gobang,
+    exact: false,
+    icon: 'chess board'
+  },
+  {
+    path: '/ticTacToe',
+    name: '井字棋',
+    component: TicTacToe,
+    exact: false,
+    icon: 'th'
+  },
+  {
+    path: '/chatRoom',
+    name: '联机五子棋',
+    component: ChatRoom,
+    exact: false,
+    icon: 'handshake outline'
+  }
+]
 
-function asyncLoad(loader: () => Promise<any>) {
-  return Loadable({
-    loader,
-    loading: props => {
-      if (props.pastDelay) {
-        return <Loading />
-      } else {
-        return null
-      }
-    },
-    delay: 500
-  })
-}
+const webglRouter = [
+  {
+    path: '/map3D',
+    name: '3D地图',
+    component: Map3D,
+    exact: false,
+    icon: 'paper plane outline'
+  },
+  {
+    path: '/fantasy-word',
+    name: '空想世界',
+    component: FantasyWord,
+    exact: false,
+    icon: 'hourglass half'
+  }
+]
 
+export const gamesRoutes = setRouterList(gamesRouter)
+export const webglRoutes = setRouterList(webglRouter)
 
-export default setRouterList
+export const routes = setRouterList(routeList)
+

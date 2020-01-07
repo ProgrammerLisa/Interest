@@ -44,7 +44,7 @@ class ToLogin extends React.Component{
       loginUser({ ..._this.state }).then(res => {
         if ((res as any).code === 200) {
           localStorage.setItem('kmr_userInfo', JSON.stringify({account: res.data.account}));
-          (this.props as any).history.push('/ticTacToe')
+          (this.props as any).history.push('/games')
         }
       })
     }

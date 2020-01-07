@@ -1,11 +1,12 @@
 import React, { Suspense, Component } from 'react'
 import { Route, Switch, Link } from 'react-router-dom'
-import routes from '../../router/r-sidebar'
+import { routes } from '../../router'
 import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react'
 
 interface NavState {
   isOpen: boolean
 }
+
 class Nav extends Component<{}, NavState> {
   toggleMenu = (status: boolean) => {
     this.setState({
@@ -25,30 +26,18 @@ class Nav extends Component<{}, NavState> {
             visible
             width='thin'
           >
-            <Link to='/ticTacToe'>
-              <Menu.Item>
-                <Icon name='th' />
-                井字棋
-              </Menu.Item>
-            </Link>
-            <Link to='/gobang'>
-              <Menu.Item>
-                <Icon name='chess board' />
-                五子棋
-              </Menu.Item>
-            </Link>
-            <Link to='/chatRoom'>
-              <Menu.Item>
-                <Icon name='comments' />
-                聊天室
-              </Menu.Item>
-            </Link>
-            <Link to='/webgl'>
-              <Menu.Item>
+            <Menu.Item>
+              <Link to='/games'>
+                <Icon name='chess' />
+                <p>游戏室</p>
+              </Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link to='/webgl'>
                 <Icon name='globe' />
-                3D地图
-              </Menu.Item>
-            </Link>
+                <p>3D世界</p>
+              </Link>
+            </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher>
             <Suspense fallback={<div>Loading...</div>}>
