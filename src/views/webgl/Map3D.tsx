@@ -2,7 +2,6 @@ import React from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three-orbitcontrols-ts'
 import Stats from 'stats.js'
-import '../../assets/sass/webGL.scss'
 import EarthImg from '../../assets/img/land_ocean.jpg'
 
 class Canvas extends React.Component {
@@ -55,7 +54,6 @@ function main(): any {
   let stats = new Stats()
   stats.showPanel(1)
   elementNode.appendChild(stats.dom)
-  
   
   // 渲染
   function render(): void {

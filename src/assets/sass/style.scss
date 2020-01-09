@@ -1,6 +1,23 @@
 $margin-10: 10px;
 $font-color: #fff;
 $theme-color: rgb(162, 145, 248);
+.ui.segment {
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+canvas {
+  /* NOTE: This size is changed if in iframe - see below '.iframe canvas' */
+  width: 100%;
+  height: 100vh;
+  display: block;
+}
+#Sweet-Kingdom {
+  width: 100%;
+  div {
+    left: 150px !important;
+  }
+}
 .flex-between {
   display: flex;
   justify-content: space-between;
@@ -23,4 +40,9 @@ $theme-color: rgb(162, 145, 248);
 }
 .page-router-item:hover {
   color: $theme-color;
+}
+.float-button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
