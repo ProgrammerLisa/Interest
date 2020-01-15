@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import * as THREE from 'three'
 import { Transition, Button } from 'semantic-ui-react'
-import draw, { createGeometry } from '../../common/initCanvas'
-
+import * as THREE from 'three'
+import TWEEN from '@tweenjs/tween.js'
+import InitCanvas from '../../common/initCanvas'
 
 interface remarksType {
   text: string,
@@ -14,13 +14,13 @@ interface TransitionRemarksState {
   text: string,
   animation: string,
   index: number,
-  buttonType: string | undefined
+  buttonType: string | undefined,
+  initCanvas: any
 }
-
 const remarks: remarksType[] = [
-  { text: '哟 来了..', animation: 'jiggle'  },
-  { text: 'a', animation: 'fade up' },
-  { text: 'b', animation: 'fade up' }
+  { text: '此项目为简单的创建物体', animation: 'jiggle'  },
+  { text: '随机位置创建随机大小的球体', animation: 'fade up' },
+  { text: '试试吧', animation: 'fade up' }
 ]
 
 const Preface = (props: TransitionRemarksState) => {
@@ -35,34 +35,51 @@ const Preface = (props: TransitionRemarksState) => {
   )
 }
 
-const CreateGrid = () => {
-  return (<Button inverted color='violet' className='float-button' onClick={() => addGeometry()}>创造一个网格</Button>)
+const CreateGrid = (props: any) => {
+  return (<Button inverted color='violet' className='float-button' onClick={() => addGeometry(props)}>创造一个球体</Button>)
 }
 
-const addGeometry = () => {
-  createGeometry({
-    GeometryShape: new THREE.SphereGeometry(0.5, 0.5, 0.5),
-    color: 0xcffffff,
-    isDebug: true,
-    castShadow: true
-  })
-  createGeometry({
-    GeometryShape: new THREE.BoxBufferGeometry(0.5, 0.5, 0.5),
-    color: 0xc9b6e4,
-    isDebug: false,
-    castShadow: true
+const addGeometry = (props: any) => {
+  const options = {
+    material:  new THREE.MeshBasicMaterial({
+      color: '#' + (Math.random() * 0xffffff<<0).toString(16),
+      wireframe: false,
+      wireframeLinewidth: 1
+    }),
+    geometry: new THREE.SphereGeometry(Math.random() * 0.5, Math.random() * 0.5, Math.random() * 0.5)
+  }
+  props.canvas.initObject({
+    ...options,
+    x: Math.random() * 10 - 5,
+    y: Math.random() * 10 - 5,
+    z: Math.random() * 5,
+    action: (Mesh: any) => {
+      new TWEEN.Tween(Mesh.position).to({ z: Math.floor((Math.random() > 0.5 ? -10 : 10) * Math.random()) }, 300).repeat(0).start()
+    },
+    animation: () => {
+      TWEEN.update()
+    }
   })
 }
 
 class TransitionRemarks extends Component<{}, TransitionRemarksState> {
-  state = { visible: false, duration: 100, text: '', animation: '', index: 0, buttonType: '' }
+  state = { visible: false, duration: 800, text: '', animation: '', index: 0, buttonType: '', initCanvas: null }
   componentDidMount() {
     const ElementNode: any = document.getElementById('Sweet-Kingdom')
     this.readRemarks(0, remarks, () => {
       this.setState({ visible: false })
+      const options = {
+        node: ElementNode,
+        controls: {
+          autoRotate: true
+        }
+      }
       setTimeout(() => {
-        this.setState({ buttonType: 'grid' })
-        draw(ElementNode)
+        const initCanvas = new InitCanvas(options)
+        this.setState({
+          buttonType: 'grid',
+          initCanvas: initCanvas
+        })
       }, this.state.duration)
     })
   }
@@ -100,7 +117,7 @@ class TransitionRemarks extends Component<{}, TransitionRemarksState> {
     let createButton
     switch (buttonType) {
       case 'grid':
-        createButton = (<CreateGrid />)
+        createButton = (<CreateGrid canvas={this.state.initCanvas} />)
         break
       default:
         createButton = ''

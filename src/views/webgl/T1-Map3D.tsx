@@ -6,7 +6,6 @@ import EarthImg from '../../assets/img/land_ocean.jpg'
 
 class Canvas extends React.Component {
   componentDidMount() {
-    window.addEventListener('mousemove', function() {}, { passive: false })
     main()
   }
   render() {

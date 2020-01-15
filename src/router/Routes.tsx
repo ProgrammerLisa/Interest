@@ -1,4 +1,4 @@
-import setRouterList from  './set-router'
+import setRouterList from  './SetRouter'
 /* 
   懒加载组件 有两种方式 推荐使用第二种
   1. lazy(() => import(组件地址)) 加载组件时会有闪屏 用户体验较差
@@ -9,15 +9,16 @@ import setRouterList from  './set-router'
   在相关文件中将componentWillMount改为UNSAFE_componentWillMount
 */
 //
-const Login = () => import('../views/login/login')
-const Games = () => import('../views/sidebar/games')
-const WebGL = () => import('../views/sidebar/webgl')
+const Login = () => import('../views/login/Login')
+const Games = () => import('../views/sidebar/Games')
+const WebGL = () => import('../views/sidebar/Webgl')
 const NotFound = () => import('../components/404')
 const TicTacToe = () => import('../views/games/TicTacToe')
 const Gobang = () => import('../views/games/Gobang')
 const ChatRoom = () => import('../views/games/Room')
-const Map3D = () => import('../views/webgl/Map3D')
-const FantasyWord = () => import('../views/webgl/fantasyWord')
+const Map3D = () => import('../views/webgl/T1-Map3D')
+const CreateObjects = () => import('../views/webgl/T2-CreateObjects')
+const DrawLine = () => import('../views/webgl/T3-DrawLine')
 /*
   lazy()方法示例
   const GobangLazy = lazy(Gobang)
@@ -25,7 +26,8 @@ const FantasyWord = () => import('../views/webgl/fantasyWord')
   const FormLazy = lazy(Form)
 */
 
-const routeList = [
+const sidebarRouter =
+[
   {
     path: '/',
     name: 'home',
@@ -55,45 +57,11 @@ const routeList = [
     name: '404',
     component: NotFound,
     exact: false
-  },
-  {
-    path: '/gobang',
-    name: '五子棋',
-    component: Gobang,
-    exact: false,
-    icon: 'chess board'
-  },
-  {
-    path: '/ticTacToe',
-    name: '井字棋',
-    component: TicTacToe,
-    exact: false,
-    icon: 'th'
-  },
-  {
-    path: '/chatRoom',
-    name: '联机五子棋',
-    component: ChatRoom,
-    exact: false,
-    icon: 'handshake outline'
-  },
-  {
-    path: '/map3D',
-    name: '3D地图',
-    component: Map3D,
-    exact: false,
-    icon: 'paper plane outline'
-  },
-  {
-    path: '/fantasy-word',
-    name: '空想世界',
-    component: FantasyWord,
-    exact: false,
-    icon: 'hourglass half'
   }
 ]
 
-const gamesRouter = [
+const gamesRouter =
+[
   {
     path: '/gobang',
     name: '五子棋',
@@ -117,7 +85,8 @@ const gamesRouter = [
   }
 ]
 
-const webglRouter = [
+const webglRouter =
+[
   {
     path: '/map3D',
     name: '3D地图',
@@ -126,16 +95,21 @@ const webglRouter = [
     icon: 'paper plane outline'
   },
   {
-    path: '/fantasy-word',
-    name: '空想世界',
-    component: FantasyWord,
+    path: '/create-objects',
+    name: '创建物体',
+    component: CreateObjects,
     exact: false,
     icon: 'hourglass half'
+  },
+  {
+    path: '/draw-line',
+    name: '画线',
+    component: DrawLine,
+    exact: false,
+    icon: 'window minimize outline'
   }
 ]
-
+const routeList = [...sidebarRouter, ...gamesRouter, ...webglRouter]
 export const gamesRoutes = setRouterList(gamesRouter)
 export const webglRoutes = setRouterList(webglRouter)
-
 export const routes = setRouterList(routeList)
-
