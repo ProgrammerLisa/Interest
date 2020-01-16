@@ -73,7 +73,7 @@ function createMesh(url: string) {
   const loader = new THREE.TextureLoader()
   loader.load(
     url,
-    function (texture) {
+    function(texture) {
       mesh.material = new THREE.MeshBasicMaterial({ map: texture })
       mesh.material.side = THREE.DoubleSide
       mesh.geometry = new THREE.SphereGeometry(1, 10, 10)

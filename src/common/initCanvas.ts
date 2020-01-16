@@ -11,14 +11,15 @@ import Stats from 'stats.js'
  * @param ambientLight 环境光
  * @param directionalLight 点光源
  * @param lightPosition 光源视点
- * @param lightIntensity 光源透视度
+ * @param lightIntensity 曝光度
  * @param controls 控制器
  */
 interface canvasType {
   node: any
   cameraOption?: number[]
   cameraPosition?: number[]
-  renderColor?: any
+  rendererOption?: object
+  rendererColor?: any
   ambientLight?: any
   directionalLight?: any
   lightPosition?: number[]
@@ -26,14 +27,9 @@ interface canvasType {
   controls?: any
 }
 interface GeometryType {
-  geometry: THREE.Geometry
-  material: THREE.Material
-  castShadow?: boolean
-  x?: number
-  y?: number
-  z?: number
-  animation?: any
-  action?: any
+  mesh: THREE.Mesh
+  animate?: any
+  update?: any
 }
 
 export default class Threescene {
@@ -50,7 +46,7 @@ export default class Threescene {
     this._options = options
     this._scene = new THREE.Scene()
     this._camera = new THREE.PerspectiveCamera(...this._options.cameraOption || [45, window.innerWidth / window.innerHeight, 0.1, 2000])
-    this._renderer = new THREE.WebGLRenderer()
+    this._renderer = new THREE.WebGLRenderer(this._options.rendererOption || {})
     this._ambientLight = new THREE.AmbientLight(this._options.ambientLight || 0x404040)
     this._directionalLight = new THREE.DirectionalLight(this._options.directionalLight || 0xFF0000)
     this._controls = new OrbitControls(this._camera, this._renderer.domElement)
@@ -62,9 +58,11 @@ export default class Threescene {
    * @method init 初始化场景
    */
   public init() {
-    this._camera.position.set(-40, 40, 40)
+    let position
+    this._options.cameraPosition ? position = this._options.cameraPosition : position = [-40, 40, 40]
+    this._camera.position.set(position[0], position[1], position[2])
     this._camera.lookAt(this._scene.position)
-    this._renderer.setClearColor(this._options.renderColor || 0x282c34)
+    this._renderer.setClearColor(this._options.rendererColor || 0x282c34)
     this._renderer.setSize(window.innerWidth, window.innerHeight)
     this._renderer.setPixelRatio(window.devicePixelRatio)
     this._options.node.appendChild(this._renderer.domElement)
@@ -80,7 +78,7 @@ export default class Threescene {
    */
   private initLight() {
     this._scene.add(this._ambientLight)
-    this._directionalLight.position.set(0, 0, 100)
+    this._directionalLight.position.set(0, 0, 1)
     this._directionalLight.intensity = this._options.lightIntensity || 0.6
     this._scene.add(this._directionalLight)
   }
@@ -131,24 +129,22 @@ export default class Threescene {
     this._controls.update()
   }
   initObject = (props: GeometryType) => {
-    const geometry = props.geometry
-    const material = props.material
-    let mesh = new THREE.Mesh(geometry, material)
-    mesh.position.set(props.x || 0, props.y || 0, props.z || 0)
-    mesh.castShadow = props.castShadow || true
-    this._scene.add(mesh)
-    if (props.action && props.animation) {
-      props.action(mesh)
+    this._scene.add(props.mesh)
+    if (props.animate || props.update) {
+      if (props.animate) props.animate(props.mesh)
       cancelAnimationFrame(this._animateSign)
       this.animate = () => {
         this.render()
         this._animateSign = requestAnimationFrame(this.animate)
         this._stats.update()
         this._controls.update()
-        props.animation()
+        if (props.update) props.update(props.mesh)
       }
       this.animate()
     }
+  }
+  removeObject = (mesh: THREE.Mesh) => {
+    this._scene.remove(mesh)
   }
   destroy = () => {
     cancelAnimationFrame(this._animateSign)

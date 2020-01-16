@@ -18,7 +18,7 @@ const Gobang = () => import('../views/games/Gobang')
 const ChatRoom = () => import('../views/games/Room')
 const Map3D = () => import('../views/webgl/T1-Map3D')
 const CreateObjects = () => import('../views/webgl/T2-CreateObjects')
-const DrawLine = () => import('../views/webgl/T3-DrawLine')
+const UseTexture = () => import('../views/webgl/T3-UseTexture')
 /*
   lazy()方法示例
   const GobangLazy = lazy(Gobang)
@@ -102,11 +102,11 @@ const webglRouter =
     icon: 'hourglass half'
   },
   {
-    path: '/draw-line',
-    name: '画线',
-    component: DrawLine,
+    path: '/use-texture',
+    name: '使用纹理',
+    component: UseTexture,
     exact: false,
-    icon: 'window minimize outline'
+    icon: 'barcode'
   }
 ]
 const routeList = [...sidebarRouter, ...gamesRouter, ...webglRouter]

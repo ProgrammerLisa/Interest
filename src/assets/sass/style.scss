@@ -46,3 +46,18 @@ canvas {
   left: 50%;
   top: 50%;
 }
+.fixed-top-right {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+.choose-image {
+  overflow: hidden;
+  .file-input {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    cursor: pointer;
+    opacity: 0;
+  }
+}

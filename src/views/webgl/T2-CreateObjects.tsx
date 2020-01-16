@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Transition, Button } from 'semantic-ui-react'
 import * as THREE from 'three'
 import TWEEN from '@tweenjs/tween.js'
+import { randomColor } from '../../common/random'
 import InitCanvas from '../../common/initCanvas'
 
 interface remarksType {
@@ -40,23 +41,22 @@ const CreateGrid = (props: any) => {
 }
 
 const addGeometry = (props: any) => {
-  const options = {
-    material:  new THREE.MeshBasicMaterial({
-      color: '#' + (Math.random() * 0xffffff<<0).toString(16),
-      wireframe: false,
-      wireframeLinewidth: 1
-    }),
-    geometry: new THREE.SphereGeometry(Math.random() * 0.5, Math.random() * 0.5, Math.random() * 0.5)
-  }
+  const color = randomColor()
+  const material = new THREE.MeshBasicMaterial({
+    color: color,
+    wireframe: false,
+    wireframeLinewidth: 1
+  })
+  const geometry = new THREE.SphereGeometry(Math.random() * 0.5, Math.random() * 0.5, Math.random() * 0.5)
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 5)
+  mesh.castShadow = true
   props.canvas.initObject({
-    ...options,
-    x: Math.random() * 10 - 5,
-    y: Math.random() * 10 - 5,
-    z: Math.random() * 5,
-    action: (Mesh: any) => {
+    mesh: mesh,
+    animate: (Mesh: THREE.Mesh) => {
       new TWEEN.Tween(Mesh.position).to({ z: Math.floor((Math.random() > 0.5 ? -10 : 10) * Math.random()) }, 300).repeat(0).start()
     },
-    animation: () => {
+    update: () => {
       TWEEN.update()
     }
   })
@@ -70,6 +70,7 @@ class TransitionRemarks extends Component<{}, TransitionRemarksState> {
       this.setState({ visible: false })
       const options = {
         node: ElementNode,
+        rendererOption: { antialias: true }, // 启用抗锯齿
         controls: {
           autoRotate: true
         }
