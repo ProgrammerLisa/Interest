@@ -47,7 +47,10 @@ const addGeometry = (props: any) => {
     wireframe: false,
     wireframeLinewidth: 1
   })
-  const geometry = new THREE.SphereGeometry(Math.random() * 0.5, Math.random() * 0.5, Math.random() * 0.5)
+  /**
+   * @param geometry SphereGeometry球形(半径长度, 水平块的密度, 垂直块的密度)
+   */
+  const geometry = new THREE.SphereGeometry(Math.random() * 0.5, 20, 20)
   const mesh = new THREE.Mesh(geometry, material)
   mesh.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 5)
   mesh.castShadow = true

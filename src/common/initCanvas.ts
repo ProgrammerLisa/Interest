@@ -30,6 +30,7 @@ interface GeometryType {
   mesh: THREE.Mesh
   animate?: any
   update?: any
+  definedAnimate?: any
 }
 
 export default class Threescene {
@@ -130,10 +131,11 @@ export default class Threescene {
   }
   initObject = (props: GeometryType) => {
     this._scene.add(props.mesh)
-    if (props.animate || props.update) {
+    if (props.animate || props.definedAnimate) {
       if (props.animate) props.animate(props.mesh)
       cancelAnimationFrame(this._animateSign)
       this.animate = () => {
+        if (props.definedAnimate) props.definedAnimate({ Mesh: props.mesh, Camera: this._camera, Scene: this._scene })
         this.render()
         this._animateSign = requestAnimationFrame(this.animate)
         this._stats.update()

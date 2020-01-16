@@ -37,6 +37,9 @@ canvas {
   p {
     padding: 10px;
   }
+  .item {
+    margin: 15px 0;
+  }
 }
 .page-router-item:hover {
   color: $theme-color;

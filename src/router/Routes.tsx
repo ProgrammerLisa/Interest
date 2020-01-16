@@ -19,6 +19,7 @@ const ChatRoom = () => import('../views/games/Room')
 const Map3D = () => import('../views/webgl/T1-Map3D')
 const CreateObjects = () => import('../views/webgl/T2-CreateObjects')
 const UseTexture = () => import('../views/webgl/T3-UseTexture')
+const DefaultGeometry = () => import('../views/webgl/T4-DefaultGeometry')
 /*
   lazy()方法示例
   const GobangLazy = lazy(Gobang)
@@ -107,6 +108,13 @@ const webglRouter =
     component: UseTexture,
     exact: false,
     icon: 'barcode'
+  },
+  {
+    path: '/default-geometry',
+    name: '内置几何模型',
+    component: DefaultGeometry,
+    exact: false,
+    icon: 'clone outline'
   }
 ]
 const routeList = [...sidebarRouter, ...gamesRouter, ...webglRouter]

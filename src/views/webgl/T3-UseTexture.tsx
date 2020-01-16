@@ -42,9 +42,9 @@ class UseTexture extends Component<{}, CanvasLineState> {
     )
     const objectOptions = {
       mesh: mesh,
-      update: (Mesh: THREE.Mesh) => {
-        Mesh.rotation.x += 0.02
-        Mesh.rotation.y += 0.02
+      definedAnimate: (props: any) => {
+        props.Mesh.rotation.x += 0.02
+        props.Mesh.rotation.y += 0.02
       }
     }
     this.setState({ mesh: mesh })
