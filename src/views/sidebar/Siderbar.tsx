@@ -38,6 +38,12 @@ class Nav extends Component<{}, NavState> {
                 <p>3D世界</p>
               </Link>
             </Menu.Item>
+            <Menu.Item>
+              <Link to='/logs'>
+                <Icon name='file alternate' />
+                <p>日志</p>
+              </Link>
+            </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher>
             <Suspense fallback={<div>Loading...</div>}>

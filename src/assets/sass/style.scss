@@ -1,10 +1,20 @@
 $margin-10: 10px;
-$font-color: #fff;
+$font-color: rgba(255, 255, 255, .95);
+$text-color: rgba(255, 255, 255, .8);
 $theme-color: rgb(162, 145, 248);
 .ui.segment {
   border: none;
   box-shadow: none;
   border-radius: 0;
+}
+.ui.items>.item>.content {
+  padding: 15px;
+  a.header, .header {
+    color: $font-color;
+  }
+  .meta, .description {
+    color: $text-color;
+  }
 }
 canvas {
   /* NOTE: This size is changed if in iframe - see below '.iframe canvas' */

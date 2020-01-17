@@ -1,6 +1,6 @@
 import React from 'react'
 import * as THREE from 'three'
-import { OrbitControls } from 'three-orbitcontrols-ts'
+import { OrbitControls } from '../../common/orbitControls'
 import Stats from 'stats.js'
 import EarthImg from '../../assets/img/land_ocean.jpg'
 

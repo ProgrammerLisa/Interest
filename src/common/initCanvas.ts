@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { OrbitControls } from 'three-orbitcontrols-ts'
+import { OrbitControls } from './orbitControls'
 import Stats from 'stats.js'
 
 /**
@@ -9,8 +9,8 @@ import Stats from 'stats.js'
  * @param cameraPosition 相机视点[x, y, z]
  * @param renderColor 渲染器颜色
  * @param ambientLight 环境光
- * @param directionalLight 点光源
- * @param lightPosition 光源视点
+ * @param directionalLight 平衡光
+ * @param directionalLightPosition 光源视点
  * @param lightIntensity 曝光度
  * @param controls 控制器
  */
@@ -22,12 +22,12 @@ interface canvasType {
   rendererColor?: any
   ambientLight?: any
   directionalLight?: any
-  lightPosition?: number[]
+  directionalLightPosition?: number[]
   lightIntensity?: number,
   controls?: any
 }
 interface GeometryType {
-  mesh: THREE.Mesh
+  mesh: any
   animate?: any
   update?: any
   definedAnimate?: any
@@ -62,7 +62,6 @@ export default class Threescene {
     let position
     this._options.cameraPosition ? position = this._options.cameraPosition : position = [-40, 40, 40]
     this._camera.position.set(position[0], position[1], position[2])
-    this._camera.lookAt(this._scene.position)
     this._renderer.setClearColor(this._options.rendererColor || 0x282c34)
     this._renderer.setSize(window.innerWidth, window.innerHeight)
     this._renderer.setPixelRatio(window.devicePixelRatio)
@@ -79,7 +78,8 @@ export default class Threescene {
    */
   private initLight() {
     this._scene.add(this._ambientLight)
-    this._directionalLight.position.set(0, 0, 1)
+    const directionalLightPosition = this._options.directionalLightPosition || [0, 0, 1]
+    this._directionalLight.position.set(directionalLightPosition[0], directionalLightPosition[1], directionalLightPosition[2])
     this._directionalLight.intensity = this._options.lightIntensity || 0.6
     this._scene.add(this._directionalLight)
   }
@@ -91,9 +91,12 @@ export default class Threescene {
    */
   private initControls() {
     const defaultOptions = this._options.controls || {}
-    this._controls.minDistance = defaultOptions.minDistance || 1
-    this._controls.maxDistance = defaultOptions.maxDistance || 10
+    this._controls.minDistance = defaultOptions.minDistance || 0
+    this._controls.maxDistance = defaultOptions.maxDistance || Infinity
+    this._controls.minPolarAngle = defaultOptions.minPolarAngle || 0
+    this._controls.maxPolarAngle = defaultOptions.maxPolarAngle || Math.PI
     this._controls.enablePan = defaultOptions.enablePan || true
+    this._controls.enableZoom  = defaultOptions.enablePan || true
     this._controls.enableDamping = defaultOptions.enableDamping || true
     this._controls.dampingFactor = defaultOptions.dampingFactor || 0.25
     this._controls.autoRotate = defaultOptions.autoRotate || false
@@ -129,8 +132,15 @@ export default class Threescene {
     this._stats.update()
     this._controls.update()
   }
+  /**
+   * @method initObject 添加模型并加载对应的动画
+   */
   initObject = (props: GeometryType) => {
-    this._scene.add(props.mesh)
+    if (props.mesh instanceof Array) {
+      this._scene.add(...props.mesh)
+    } else {
+      this._scene.add(props.mesh)
+    }
     if (props.animate || props.definedAnimate) {
       if (props.animate) props.animate(props.mesh)
       cancelAnimationFrame(this._animateSign)
@@ -145,6 +155,9 @@ export default class Threescene {
       this.animate()
     }
   }
+  /**
+   * @method removeObject 清除指定的模型
+   */
   removeObject = (mesh: THREE.Mesh) => {
     this._scene.remove(mesh)
   }
