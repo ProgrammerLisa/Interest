@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { gamesRoutes } from '../../router/Routes'
-import RouterList from '../../components/PageRouterList'
+import { gamesRoutes } from '../../router/routes'
+import RouterList from '../../components/pageRouterList'
 
 class Games extends Component {
   render() {

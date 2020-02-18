@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { webglRoutes } from '../../router/Routes'
-import RouterList from '../../components/PageRouterList'
+import { webglRoutes } from '../../router/routes'
+import RouterList from '../../components/pageRouterList'
 import Detector from 'device-detector-js'
 
 const detector = new Detector()

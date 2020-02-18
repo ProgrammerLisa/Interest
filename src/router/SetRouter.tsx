@@ -1,8 +1,8 @@
 import React from 'react' // , { lazy }
 import Loadable from 'react-loadable'
-import Loading from '../components/Loading'
-import ScrollToTop from '../components/Scroll' // 切换路由时滚动到顶部 返回或前进则滚动高度不变
-import ErrorBounday from '../components/Error' // 错误边界
+import Loading from '../components/loading'
+import ScrollToTop from '../components/scroll' // 切换路由时滚动到顶部 返回或前进则滚动高度不变
+import ErrorBounday from '../components/error' // 错误边界
 
 interface routeListItem {
   path: string,

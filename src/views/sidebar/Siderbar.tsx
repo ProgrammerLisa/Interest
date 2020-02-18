@@ -1,6 +1,6 @@
 import React, { Suspense, Component } from 'react'
 import { Route, Switch, Link } from 'react-router-dom'
-import { routes } from '../../router/Routes'
+import { routes } from '../../router/routes'
 import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react'
 
 interface NavState {

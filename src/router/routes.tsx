@@ -1,4 +1,4 @@
-import setRouterList from  './SetRouter'
+import setRouterList from  './setRouter'
 /* 
   懒加载组件 有两种方式 推荐使用第二种
   1. lazy(() => import(组件地址)) 加载组件时会有闪屏 用户体验较差
@@ -9,9 +9,9 @@ import setRouterList from  './SetRouter'
   在相关文件中将componentWillMount改为UNSAFE_componentWillMount
 */
 //
-const Login = () => import('../views/login/Login')
-const Games = () => import('../views/sidebar/Games')
-const WebGL = () => import('../views/sidebar/Webgl')
+const Login = () => import('../views/login/login')
+const Games = () => import('../views/sidebar/games')
+const WebGL = () => import('../views/sidebar/webgl')
 const NotFound = () => import('../components/404')
 const TicTacToe = () => import('../views/games/TicTacToe')
 const Gobang = () => import('../views/games/Gobang')

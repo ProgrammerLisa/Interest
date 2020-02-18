@@ -1,5 +1,5 @@
 import React from 'react'
-import Sidebar from './views/sidebar/Siderbar'
+import Sidebar from './views/sidebar/siderbar'
 import 'semantic-ui-css/semantic.min.css'
 import './assets/sass/App.scss'
 import './assets/sass/style.scss'
