@@ -10,7 +10,7 @@ ThreeJS学习网站：https://www.wjceo.com/blog/threejs/
 
 npm install --global --production windows-build-tools<br />
 
-npm config set python <phthon安装路径><br />
+npm config set python <python安装路径><br />
 
 npm config set msvs_version 2017<br />
 
