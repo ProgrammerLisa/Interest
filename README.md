@@ -33,3 +33,8 @@ npm config set msvs_version 2017<br />
 ### `npm run eject`
 
 暴露配置文件，属于单向操作，不可逆
+
+#### `小提示`
+
+项目中使用了react-loadable，这个插件有一个毛病就是用了componentWillMount，并且一直没有修复，所以在浏览器控制台会出现警告（并不影响使用）<br />
+有代码洁癖的小可爱可以在node_modules/react-loadable/lib/index.js中找到componentWillMount，将其替换成UNSAFE_componentWillMount就ok了<br />

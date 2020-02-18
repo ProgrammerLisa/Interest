@@ -23,7 +23,6 @@ function main(): any {
 
   // 场景
   let Sence = new THREE.Scene()
-
   // 透视相机
   let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000)
   camera.position.z = 1
