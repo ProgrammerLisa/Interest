@@ -9,12 +9,12 @@ class Canvas extends React.Component {
     main()
   }
   render() {
-    return (<div id="Sweet-Kingdom"></div>)
+    return (<div id="Canvas-Container"></div>)
   }
 }
 
 function main(): any {
-  const elementNode: any = document.getElementById('Sweet-Kingdom')
+  const elementNode: any = document.getElementById('Canvas-Container')
   let renderer = new THREE.WebGLRenderer()
   renderer.setClearColor(0x333333)
   renderer.setPixelRatio(window.devicePixelRatio)

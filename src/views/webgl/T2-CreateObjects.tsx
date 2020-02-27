@@ -68,7 +68,7 @@ const addGeometry = (props: any) => {
 class TransitionRemarks extends Component<{}, TransitionRemarksState> {
   state = { visible: false, duration: 800, text: '', animation: '', index: 0, buttonType: '', initCanvas: null }
   componentDidMount() {
-    const ElementNode: any = document.getElementById('Sweet-Kingdom')
+    const ElementNode: any = document.getElementById('Canvas-Container')
     this.readRemarks(0, remarks, () => {
       this.setState({ visible: false })
       const options = {
@@ -129,7 +129,7 @@ class TransitionRemarks extends Component<{}, TransitionRemarksState> {
     return (
       <>
         <Preface {...this.state} />
-        <div id='Sweet-Kingdom'></div>
+        <div id='Canvas-Container'></div>
         {createButton}
       </>
     )

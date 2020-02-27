@@ -5,7 +5,7 @@ import texturesImage from '../../assets/img/disturb.jpg'
 
 class DefaultGeometry extends Component {
   componentDidMount() {
-    const canvasNode = document.getElementById('Sweet-Kingdom')
+    const canvasNode = document.getElementById('Canvas-Container')
     const canvas = this.initCanvas(canvasNode)
     const objectCube = this.initObjectCube()
     canvas.initObject(objectCube)
@@ -110,7 +110,7 @@ class DefaultGeometry extends Component {
     return mesh
   }
   render() {
-    return <div id='Sweet-Kingdom'></div>
+    return <div id='Canvas-Container'></div>
   }
 }
 export default DefaultGeometry

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
 import '../../assets/sass/Gobang.css'
-
 const user = JSON.parse((localStorage as any).getItem('kmr_userInfo')).account
 
 const boardRow = 20

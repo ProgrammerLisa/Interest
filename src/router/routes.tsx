@@ -15,7 +15,7 @@ const WebGL = () => import('../views/sidebar/webgl')
 const NotFound = () => import('../components/404')
 const TicTacToe = () => import('../views/games/TicTacToe')
 const Gobang = () => import('../views/games/Gobang')
-const ChatRoom = () => import('../views/games/Room')
+const ChatRoom = () => import('../views/games/ChatRoom')
 const Map3D = () => import('../views/webgl/T1-Map3D')
 const CreateObjects = () => import('../views/webgl/T2-CreateObjects')
 const UseTexture = () => import('../views/webgl/T3-UseTexture')
@@ -34,30 +34,35 @@ const sidebarRouter =
     path: '/',
     name: 'home',
     component: Login,
+    needLogin: true,
     exact: true
   },
   {
     path: '/login',
     name: 'login',
     component: Login,
+    needLogin: false,
     exact: false
   },
   {
     path: '/games',
     name: 'games',
     component: Games,
+    needLogin: false,
     exact: false
   },
   {
     path: '/webgl',
     name: 'webgl',
     component: WebGL,
+    needLogin: false,
     exact: false
   },
   {
     path: '/404',
     name: '404',
     component: NotFound,
+    needLogin: false,
     exact: false
   }
 ]
@@ -68,6 +73,7 @@ const gamesRouter =
     path: '/gobang',
     name: '五子棋',
     component: Gobang,
+    needLogin: true,
     exact: false,
     icon: 'chess board'
   },
@@ -75,6 +81,7 @@ const gamesRouter =
     path: '/ticTacToe',
     name: '井字棋',
     component: TicTacToe,
+    needLogin: true,
     exact: false,
     icon: 'th'
   },
@@ -82,6 +89,7 @@ const gamesRouter =
     path: '/chatRoom',
     name: '联机五子棋',
     component: ChatRoom,
+    needLogin: true,
     exact: false,
     icon: 'handshake outline'
   }
@@ -93,6 +101,7 @@ const webglRouter =
     path: '/map3D',
     name: '3D地图',
     component: Map3D,
+    needLogin: true,
     exact: false,
     icon: 'paper plane outline'
   },
@@ -100,6 +109,7 @@ const webglRouter =
     path: '/create-objects',
     name: '创建物体',
     component: CreateObjects,
+    needLogin: true,
     exact: false,
     icon: 'hourglass half'
   },
@@ -107,6 +117,7 @@ const webglRouter =
     path: '/use-texture',
     name: '使用纹理',
     component: UseTexture,
+    needLogin: true,
     exact: false,
     icon: 'barcode'
   },
@@ -114,6 +125,7 @@ const webglRouter =
     path: '/default-geometry',
     name: '内置几何模型',
     component: DefaultGeometry,
+    needLogin: true,
     exact: false,
     icon: 'clone outline'
   }
@@ -122,8 +134,9 @@ const webglRouter =
 const logsRouter = [
   {
     path: '/logs',
-    name: '内置几何模型',
+    name: '日志',
     component: Logs,
+    needLogin: false,
     exact: false,
     icon: 'clone outline'
   }

@@ -13,7 +13,7 @@ class UseTexture extends Component<{}, CanvasLineState> {
     this.state = {}
   }
   componentDidMount() {
-    const canvasNode = document.getElementById('Sweet-Kingdom')
+    const canvasNode = document.getElementById('Canvas-Container')
     const canvas = this.initCanvas(canvasNode)
     canvas.initObject(this.objectOptions())
   }
@@ -69,7 +69,7 @@ class UseTexture extends Component<{}, CanvasLineState> {
           <Button inverted color='violet'>换图</Button>
           <input type='file' accept='image/*' id='file-honey' className='file-input' onChange={this.changeImage} />
         </div>
-        <div id='Sweet-Kingdom'></div>
+        <div id='Canvas-Container'></div>
       </>
     )
   }

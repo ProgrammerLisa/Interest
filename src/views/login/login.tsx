@@ -40,11 +40,13 @@ class ToLogin extends React.Component{
 
   login = () => {
     const _this = this
+    const url = window.location.href.split('//')[1].split('/')[1]
     if ((this.state as State).account && (this.state as State).password) {
       loginUser({ ..._this.state }).then(res => {
         if ((res as any).code === 200) {
           localStorage.setItem('kmr_userInfo', JSON.stringify({account: res.data.account}));
-          (this.props as any).history.push('/games')
+          (this.props as any).history.push(`/${ url }`)
+          window.location.reload()
         }
       })
     }
@@ -54,11 +56,11 @@ class ToLogin extends React.Component{
     return (
       <Form>
         <Form.Field>
-          <label className='input-label'>账号</label>
+          <label className='input-label'>账号 (lisa / arya)</label>
           <input placeholder='账号' value={(this.state as State).account} onChange={this.synchronizationAccount} />
         </Form.Field>
         <Form.Field>
-          <label className='input-label'>密码</label>
+          <label className='input-label'>密码 (123456 / 654321)</label>
           <input placeholder='密码' value={(this.state as State).password} onChange={this.synchronizationPsw} />
         </Form.Field>
         <Button inverted color='violet' type='submit' onClick={this.login}>登录</Button>
