@@ -130,7 +130,7 @@ const webglRouter =
     icon: 'clone outline'
   }
 ]
-   
+
 const logsRouter = [
   {
     path: '/logs',

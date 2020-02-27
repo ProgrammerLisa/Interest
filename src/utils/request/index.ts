@@ -18,6 +18,9 @@ fetch.interceptors.request.use(config => {
 })
 
 fetch.interceptors.response.use(async data => {
+  if (data.data.code !== 200) {
+    layer.msg(data.data.msg)
+  }
   return data.data
 }, error => {
   if (error.response) {
