@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4fc81532993e9fc3f5afa07bcdab011f",
+    "revision": "48d065230254a7ebb7a0087823593f4e",
     "url": "/index.html"
   },
   {
-    "revision": "885b683afee2b814aa86",
-    "url": "/static/css/12.9eeb7a78.chunk.css"
+    "revision": "24d273c2ed9c239a8951",
+    "url": "/static/css/12.a31daf68.chunk.css"
   },
   {
     "revision": "e0fdc7622278934ff88c",
@@ -52,7 +52,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/11.e6523acd.chunk.js"
   },
   {
-    "revision": "885b683afee2b814aa86",
+    "revision": "24d273c2ed9c239a8951",
     "url": "/static/js/12.e2980060.chunk.js"
   },
   {
@@ -140,8 +140,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/main.b64a0138.chunk.js"
   },
   {
-    "revision": "caf1f35506030cd8de5f",
-    "url": "/static/js/runtime-main.97ace9ff.js"
+    "revision": "1005ea85221379cc9870",
+    "url": "/static/js/runtime-main.8955395b.js"
   },
   {
     "revision": "0bb6905965c640b31dce9c467e6ae64a",
@@ -150,10 +150,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "be236b3e1231597878a5808e7d73ed7f",
     "url": "/static/media/bargain.be236b3e.png"
-  },
-  {
-    "revision": "0559f01130631a10a77c9cd74b3d3343",
-    "url": "/static/media/bg.0559f011.png"
   },
   {
     "revision": "649ab46b3e0450ae358844899c9a7e63",
@@ -192,10 +188,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/flags.9c74e172.png"
   },
   {
-    "revision": "5c838af318aa5d3d58af3c04254b417a",
-    "url": "/static/media/game-tpl-bg.5c838af3.jpg"
-  },
-  {
     "revision": "c7bf6d9f9248a92cfd42ac1595e03a76",
     "url": "/static/media/game-tpl-bg.c7bf6d9f.webp"
   },
@@ -226,10 +218,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "b07dffb39178b6c32ded56481356ffaa",
     "url": "/static/media/land_ocean.b07dffb3.jpg"
-  },
-  {
-    "revision": "3dfd4cc894357dcd6509aef514e734fe",
-    "url": "/static/media/loading_bg.3dfd4cc8.png"
   },
   {
     "revision": "55dc5b8e58516847ac998200de33579a",
