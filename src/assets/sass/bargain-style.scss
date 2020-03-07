@@ -187,6 +187,9 @@
     .ui.comments .comment {
       margin: 0;
       padding: .5em;
+      .text, .metadata, .author {
+        color: white;
+      }
     }
   }
 }
