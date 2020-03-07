@@ -15,7 +15,7 @@
   transition: .5s;
 }
 .g-loading-container {
-  background: url(../img/loading_bg.png) no-repeat;
+  background: url('../img/loading_bg.webp') no-repeat, url('../img/loading_bg.png') no-repeat;
   background-size: 100% 100%;
   justify-content: center;
   padding: 40px;
