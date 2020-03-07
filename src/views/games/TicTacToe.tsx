@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'semantic-ui-react'
-import '../../assets/sass/Gobang.css'
+import '../../assets/sass/Gobang-style.css'
 
 interface SquareType {
   [index: number]: string

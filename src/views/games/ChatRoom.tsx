@@ -3,7 +3,7 @@ import io from 'socket.io-client'
 import { Button, Input } from 'semantic-ui-react'
 import { intoRoom, addRoom } from '../../utils/api/chat'
 import { config } from '../../utils/request/config'
-import Gobang from './Gobang-online'
+import Gobang from './gobangOnline'
 /*
 function renderMessageBox(props) {
   let box = []
@@ -97,8 +97,6 @@ class WebSocket extends React.Component<WebSocketProps, WebSocketState> {
       addRoom({upperHand: userInfo.account, roomName: inputText, roomId: new Date().getTime()}).then(res => {
         if ((res as any).code === 200) {
           this.initSocket(res.data.roomId)
-        } else {
-          console.log(res)
         }
       })
     }

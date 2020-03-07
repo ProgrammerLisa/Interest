@@ -13,9 +13,10 @@ const Login = () => import('../views/login/login')
 const Games = () => import('../views/sidebar/games')
 const WebGL = () => import('../views/sidebar/webgl')
 const NotFound = () => import('../components/404')
-const TicTacToe = () => import('../views/games/TicTacToe')
-const Gobang = () => import('../views/games/Gobang')
-const ChatRoom = () => import('../views/games/ChatRoom')
+const TicTacToe = () => import('../views/games/ticTacToe')
+const Gobang = () => import('../views/games/gobang')
+const ChatRoom = () => import('../views/games/chatRoom')
+const Bargain = () => import('../views/games/bargain')
 const Map3D = () => import('../views/webgl/T1-Map3D')
 const CreateObjects = () => import('../views/webgl/T2-CreateObjects')
 const UseTexture = () => import('../views/webgl/T3-UseTexture')
@@ -92,6 +93,14 @@ const gamesRouter =
     needLogin: true,
     exact: false,
     icon: 'handshake outline'
+  },
+  {
+    path: '/bargain',
+    name: '砍价',
+    component: Bargain,
+    needLogin: true,
+    exact: false,
+    icon: 'cut'
   }
 ]
 

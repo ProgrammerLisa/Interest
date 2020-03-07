@@ -30,6 +30,25 @@ const Logs = () => (
         </Item.Description>
       </Item.Content>
     </Item>
+    <Item>
+      <Item.Content>
+        <Item.Header as='a'>引入mp3/mp4等媒体文件报错</Item.Header>
+        <Item.Meta>提示无法找到模块？？</Item.Meta>
+        <Item.Description>
+          <p>用require 不要用import</p>
+          <p>const audio = require('文件路径')</p>
+        </Item.Description>
+      </Item.Content>
+    </Item>
+    <Item>
+      <Item.Content>
+        <Item.Header as='a'>semantic-ui-react popup组件设置open属性</Item.Header>
+        <Item.Meta>如果直接设置open=true 那么第一次渲染时，弹出层将飘到你意想不到的地方</Item.Meta>
+        <Item.Description>
+          <p>将open的值设置一个状态为false，在componentDidMount中！延时！修改状态</p>
+        </Item.Description>
+      </Item.Content>
+    </Item>
   </Item.Group>
 )
 export default Logs
