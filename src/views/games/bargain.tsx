@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Progress, Popup, Transition, Dimmer, Comment } from 'semantic-ui-react'
+import { Button, Progress, Popup, Transition, Dimmer, Comment, Image } from 'semantic-ui-react'
 import DateType from '../../common/dateType'
 import '../../assets/sass/bargain-style.scss'
 import voice from '../../assets/img/music-btn.png'
@@ -66,7 +66,7 @@ const Voice = (props: VoiceProps) => {
 const PlayGame = (props: BargainState) => {
   return (
     <div className='g-play'>
-      <img src={logo} alt='logo' />
+      <Image src={logo} alt='logo' />
       <p>
         <Button color='yellow' onClick={() => props.setSwitchStatus('play')}>开始游戏</Button>
       </p>
