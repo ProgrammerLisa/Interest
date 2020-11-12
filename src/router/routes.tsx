@@ -21,6 +21,8 @@ const Map3D = () => import('../views/webgl/T1-Map3D')
 const CreateObjects = () => import('../views/webgl/T2-CreateObjects')
 const UseTexture = () => import('../views/webgl/T3-UseTexture')
 const DefaultGeometry = () => import('../views/webgl/T4-DefaultGeometry')
+const FontModule = () => import('../views/webgl/T5-FontModel')
+const Shadow = () => import('../views/webgl/T6-Shadow')
 const Logs = () =>　import('../views/logs/index')
 /*
   lazy()方法示例
@@ -134,6 +136,22 @@ const webglRouter =
     path: '/default-geometry',
     name: '内置几何模型',
     component: DefaultGeometry,
+    needLogin: true,
+    exact: false,
+    icon: 'clone outline'
+  },
+  {
+    path: '/font-module',
+    name: '字体模型',
+    component: FontModule,
+    needLogin: true,
+    exact: false,
+    icon: 'clone outline'
+  },
+  {
+    path: '/shadow',
+    name: '阴影',
+    component: Shadow,
     needLogin: true,
     exact: false,
     icon: 'clone outline'

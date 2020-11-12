@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { OrbitControls } from './orbitControls'
 import Stats from 'stats.js'
+import dat from 'dat.gui'
 
 /**
  * @method canvasType canvas参数
@@ -9,22 +10,22 @@ import Stats from 'stats.js'
  * @param cameraPosition 相机视点[x, y, z]
  * @param renderColor 渲染器颜色
  * @param ambientLight 环境光
- * @param directionalLight 平衡光
- * @param directionalLightPosition 光源视点
- * @param lightIntensity 曝光度
  * @param controls 控制器
  */
 interface canvasType {
   node: any
   cameraOption?: number[]
   cameraPosition?: number[]
+  sceneOption?: any
   rendererOption?: object
+  renderShadow?: boolean
+  renderShadowType?: THREE.ShadowMapType
   rendererColor?: any
   ambientLight?: any
-  directionalLight?: any
-  directionalLightPosition?: number[]
-  lightIntensity?: number,
   controls?: any
+  hideDatGui?: boolean
+  gui?: object
+  guiOption?: any
 }
 interface GeometryType {
   mesh: any
@@ -32,24 +33,27 @@ interface GeometryType {
   update?: any
   definedAnimate?: any
 }
+interface Map extends THREE.Scene {
+  [key: string]: any
+  [index: number]: any
+}
 
 export default class Threescene {
-  private _scene: THREE.Scene
+  private _scene: Map
   private _camera: THREE.PerspectiveCamera
   private _renderer: THREE.WebGLRenderer
   private _ambientLight: THREE.AmbientLight
-  private _directionalLight: THREE.DirectionalLight
   private _controls: OrbitControls
   private _stats: Stats
   private _options: canvasType
   private _animateSign: number
+  public _gui: any
   public constructor(options: canvasType) {
     this._options = options
     this._scene = new THREE.Scene()
     this._camera = new THREE.PerspectiveCamera(...this._options.cameraOption || [45, window.innerWidth / window.innerHeight, 0.1, 2000])
     this._renderer = new THREE.WebGLRenderer(this._options.rendererOption || {})
     this._ambientLight = new THREE.AmbientLight(this._options.ambientLight || 0x404040)
-    this._directionalLight = new THREE.DirectionalLight(this._options.directionalLight || 0xFF0000)
     this._controls = new OrbitControls(this._camera, this._renderer.domElement)
     this._stats = new Stats()
     this._animateSign = 0
@@ -65,8 +69,12 @@ export default class Threescene {
     this._renderer.setClearColor(this._options.rendererColor || 0x282c34)
     this._renderer.setSize(window.innerWidth, window.innerHeight)
     this._renderer.setPixelRatio(window.devicePixelRatio)
+    this._renderer.shadowMap.enabled = this._options.renderShadow || false
+    if (this._options.renderShadowType) this._renderer.shadowMap.type = this._options.renderShadowType
     this._options.node.appendChild(this._renderer.domElement)
     // this._scene.add(new THREE.AxesHelper(10))
+    if (!this._options.hideDatGui) this.initDat()
+    this.initScene()
     this.initLight()
     this.initControls()
     this.initStats()
@@ -74,14 +82,35 @@ export default class Threescene {
     window.onresize = this.onWindowResize
   }
   /**
-   * @method initLight 初始化灯光
+   * @method initDat 初始化Dat
    */
-  private initLight() {
-    this._scene.add(this._ambientLight)
-    const directionalLightPosition = this._options.directionalLightPosition || [0, 0, 1]
-    this._directionalLight.position.set(directionalLightPosition[0], directionalLightPosition[1], directionalLightPosition[2])
-    this._directionalLight.intensity = this._options.lightIntensity || 0.6
-    this._scene.add(this._directionalLight)
+  private initScene() {
+    if (this._options.sceneOption) {
+      let obj = this._options.sceneOption
+      for (let v in obj) {
+        if (v in this._scene) {
+          this._scene[v] = obj[v]
+        }
+      }
+    }
+  }
+  /**
+   * @method initDat 初始化Dat
+   */
+  private initDat() {
+    this._gui = this._options.gui || {
+      lightY: 30, //灯光y轴的位置
+      sphereX: 0, //球的x轴的位置
+      sphereZ: 0, //球的z轴的位置
+      cubeX: 25, //立方体的x轴位置
+      cubeZ: -5 //立方体的z轴的位置
+    }
+    let datGui = new dat.GUI()
+    if (this._options.guiOption) {
+      this._options.guiOption.forEach((v: any) => {
+        datGui.add(this._gui, v.name, v.min, v.max)
+      })
+    }
   }
   /**
    * @method initControls 初始化轨道控制器
@@ -95,8 +124,8 @@ export default class Threescene {
     this._controls.maxDistance = defaultOptions.maxDistance || Infinity
     this._controls.minPolarAngle = defaultOptions.minPolarAngle || 0
     this._controls.maxPolarAngle = defaultOptions.maxPolarAngle || Math.PI
-    this._controls.enablePan = defaultOptions.enablePan || true
-    this._controls.enableZoom  = defaultOptions.enablePan || true
+    this._controls.enablePan = defaultOptions.enablePan === false ? false : true
+    this._controls.enableZoom  = defaultOptions.enableZoom || true
     this._controls.enableDamping = defaultOptions.enableDamping || true
     this._controls.dampingFactor = defaultOptions.dampingFactor || 0.25
     this._controls.autoRotate = defaultOptions.autoRotate || false
@@ -128,9 +157,15 @@ export default class Threescene {
    */
   private animate = () => {
     this.render()
-    this._animateSign = requestAnimationFrame(this.animate)
     this._stats.update()
     this._controls.update()
+    this._animateSign = requestAnimationFrame(this.animate)
+  }
+  /**
+   * @method initLight 初始化灯光
+   */
+  private initLight() {
+    this._scene.add(this._ambientLight)
   }
   /**
    * @method initObject 添加模型并加载对应的动画
