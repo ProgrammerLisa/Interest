@@ -22,13 +22,18 @@ class UseTexture extends Component<{}, CanvasLineState> {
       node: canvasNode,
       rendererOption: { antialias: true },
       cameraOption: [45, window.innerWidth / window.innerHeight, 1, 4000],
-      cameraPosition: [0, 0, 3],
-      directionalLight: 0xffffff,
-      lightIntensity: 1.5
+      cameraPosition: [0, 0, 3]
     }
     const canvas = new InitCanvas(options)
+    canvas.initObject({ mesh: this.lightOptions() })
     this.setState({ canvas: canvas })
     return canvas
+  }
+  lightOptions() {
+    const light = new THREE.DirectionalLight(0xffffff)
+    light.position.set(0, 0, 1)
+    light.intensity = 1.5
+    return light
   }
   objectOptions = (image?: any) => {
     const mesh = new THREE.Mesh()

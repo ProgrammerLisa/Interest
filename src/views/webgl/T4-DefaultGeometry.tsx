@@ -18,13 +18,20 @@ class DefaultGeometry extends Component {
       node: canvasNode,
       rendererOption: { antialias: true },
       cameraOption: [45, window.innerWidth / window.innerHeight, 1, 2000],
-      cameraPosition: [0, 400, 0],
-      directionalLight: 0xffffff,
-      directionalLightPosition: [0, 1, 0],
-      lightIntensity: 1.5
+      cameraPosition: [0, 400, 0]
     }
     const canvas = new InitCanvas(options)
+    canvas.initObject({ mesh: this.lightOptions() })
     return canvas
+  }
+  /**
+   * @method lightOptions 定义光参数
+   */
+  lightOptions() {
+    const light = new THREE.DirectionalLight(0xffffff)
+    light.position.set(0, 1, 0)
+    light.intensity = 1.5
+    return light
   }
   /**
    * @method initObjectCube 初始化模型数组和指定动画
